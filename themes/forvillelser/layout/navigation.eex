@@ -1,0 +1,14 @@
+<nav>
+  <ul>
+  <%= Enum.map(@items, fn item ->
+    url = if item.category == :index do
+      "#{@href_prefix}#{item.filename}"
+    else
+      "#{@href_prefix}#{item.category}/#{item.filename}"
+    end
+    """
+    <li><a href="#{url}">#{item.markdown.front_matter.title}</a></li>
+    """
+  end) %>
+  </ul>
+</nav>

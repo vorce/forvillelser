@@ -1,0 +1,102 @@
+body {
+  padding: 0;
+
+  background: rgb(254, 253, 251);
+
+  font-family: 'sweden_sansregular', Helvetica-neue, Helvetica, sans-serif;
+  font-size: 1.1em;
+  line-height: 1.5em;
+  margin: 20px;
+  color: #333;
+}
+
+ h1, h2, h3, h4 {
+   font-family: 'Fira Sans', Helvetica-neue, Helvetica, sans-serif;
+ }
+
+ h1 {
+   font-weight: bolder;
+   font-size: 36pt;
+ }
+
+ h2 {
+   font-size: 22pt;
+ }
+
+ /* h2 > a {
+   text-decoration: none;
+ }
+
+ h2 > a:hover {
+   text-decoration: underline;
+ } */
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+code {
+  font-family: 'Fira Code';
+}
+
+blockquote {
+  font-family: 'Fira Sans';
+  font-size: 16pt;
+  font-style: italic;
+  color: #666;
+}
+
+.container {
+  width: 980px;
+  margin: 0 auto;
+}
+
+#post-created-at {
+  display: inline-block;
+  color: #555;
+  font-size: small;
+  /* font-style: italic; */
+}
+
+div#title > h2 {
+  margin-bottom: 5px;
+}
+
+hr {
+  border: 0;
+  color: #666;
+  height: 1px;
+  margin-top: 30px;
+  background-color: #666;
+}
+
+nav {
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  width: 90%;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  list-style-type: none;
+  font-family: 'Fira Sans';
+  font-size: 17pt;
+}
+
+nav > ul > li > a {
+  display: block;
+  line-height: 56px;
+  padding: 0;
+  padding-right: 24px;
+  text-decoration: none;
+}

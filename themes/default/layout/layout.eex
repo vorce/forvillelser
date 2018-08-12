@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Förvillelser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <%= @css %>
+    <%= @js %>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Förvillelser</h1>
+
+      <%= @navigation %>
+
+      <%= @content %>
+    </div>
+  </body>
+</html>

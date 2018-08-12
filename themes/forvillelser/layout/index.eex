@@ -1,0 +1,13 @@
+<div class="index">
+  <%= Enum.map @posts, fn post ->
+    assigns = [
+      filename: post.filename,
+      front_matter: post.markdown.front_matter,
+      content: post.html_content,
+      content_dir: "posts/"
+    ]
+    EEx.eval_file("themes/forvillelser/layout/post.eex", assigns: assigns) <> "\n<hr />"
+  end %>
+  <%= @older %>
+  <%= @newer %>
+</div>
