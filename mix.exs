@@ -19,7 +19,7 @@ defmodule PersonalSite.MixProject do
 
   defp deps do
     [
-      {:gonz, path: "../gonz"}
+      {:gonz, "~> 0.1.0"}
     ]
   end
 end
