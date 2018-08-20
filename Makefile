@@ -6,4 +6,4 @@ clean:
 	rm -rf build
 
 build:
-	mix gonz.build forvillelser all
+	mix gonz.build forvillelser docs

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Förvillelser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/fonts.css" />
+<link rel="stylesheet" href="../assets/css/github.css" />
+    <script type="text/javascript" src="../assets/js/highlight.pack.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Förvillelser</h1>
+
+      <nav>
+  <ul>
+  <li><a href="../index.html">Home</a></li>
+<li><a href="../pages/about">About</a></li>
+
+  </ul>
+</nav>
+
+
+      <div id="page">
+  <div id="title">
+    <h2>About</h2>
+  </div>
+
+  <p>I can be reached on joel@vorce.se and <a href="https://twitter.com/Octavorce">@octavorce</a>. I built <a href="https://github.com/vorce/forvillelser">this site</a> with <a href="https://github.com/vorce/gonz">gonz</a>.</p>
+<p>Old blogs that now are part of this space:</p>
+<ul>
+<li><a href="http://vorce.tumblr.com/">Vorce</a> (music blog)
+</li>
+<li><a href="http://forvillelser.tumblr.com/">Förvillelser</a> (inspiration + personal projects)
+</li>
+</ul>
+
+</div>
+
+    </div>
+  </body>
+</html>
