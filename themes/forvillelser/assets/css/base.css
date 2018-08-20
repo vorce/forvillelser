@@ -8,9 +8,9 @@ body {
 
   letter-spacing: 0.01em;
   line-height: 1.6;
-  font-size: 1.3em;
+  font-size: 1.15em;
   font-weight: 400;
-  font-family: 'Fira Sans', Helvetica-neue, Helvetica, sans-serif;
+  font-family: Helvetica-neue, Helvetica, sans-serif;
 }
 
  h1, h2, h3, h4 {
@@ -66,8 +66,9 @@ blockquote {
 }
 
 .container {
-  width: 980px;
+  max-width: 960px;
   margin: 0 auto;
+  width: 80%;
 }
 
 #post-created-at {
@@ -75,7 +76,6 @@ blockquote {
   color: #555;
   font-size: small;
   font-family: 'sweden_sansregular';
-  /* font-style: italic; */
 }
 
 div#title > h2 {
@@ -115,4 +115,8 @@ nav > ul > li > a {
   padding: 0;
   padding-right: 24px;
   text-decoration: none;
+}
+
+ul {
+  list-style: circle inside;
 }

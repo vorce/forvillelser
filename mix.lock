@@ -1,6 +1,6 @@
 %{
   "earmark": {:hex, :earmark, "1.2.5", "4d21980d5d2862a2e13ec3c49ad9ad783ffc7ca5769cf6ff891a4553fbaae761", [], [], "hexpm"},
-  "gonz": {:git, "git@github.com:vorce/gonz.git", "6e1eae6d1a1dcecca744fd04d7bd001a8a510892", [branch: "master"]},
+  "gonz": {:git, "git@github.com:vorce/gonz.git", "088b8674f1b9a3f38b657c3f8497b7f8c768bf25", [branch: "master"]},
   "yamerl": {:hex, :yamerl, "0.7.0", "e51dba652dce74c20a88294130b48051ebbbb0be7d76f22de064f0f3ccf0aaf5", [], [], "hexpm"},
   "yaml_elixir": {:hex, :yaml_elixir, "2.1.0", "79ec163e0f379dadf4b0e8b5162567dc1feb96c3cfa793105869e2c616ab4342", [], [{:yamerl, "~> 0.7", [hex: :yamerl, repo: "hexpm", optional: false]}], "hexpm"},
 }

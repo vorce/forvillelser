@@ -1,5 +1,7 @@
 <div id="page">
-  <%= @front_matter.title %>
-  <hr />
+  <div id="title">
+    <h2><%= @front_matter.title %></h2>
+  </div>
+
   <%= @content %>
 </div>
