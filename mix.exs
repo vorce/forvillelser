@@ -19,7 +19,7 @@ defmodule PersonalSite.MixProject do
 
   defp deps do
     [
-      {:gonz, git: "git@github.com:vorce/gonz.git", branch: "master"}
+      {:gonz, git: "https://github.com/vorce/gonz.git", branch: "master"}
     ]
   end
 end
