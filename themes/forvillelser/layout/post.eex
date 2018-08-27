@@ -1,14 +1,16 @@
-<div id="post">
+<article class="h-entry" id="post">
   <div id="title">
-  <h2>
+  <h2 class="p-name">
     <a href="<%= @content_dir <> @filename %>"><%= @front_matter.title %></a>
   </h2>
   <%=
     {:ok, dt, _} = DateTime.from_iso8601(@front_matter.created_at)
     date = dt |> DateTime.to_date() |> Date.to_iso8601()
     time = dt |> DateTime.to_time() |> Time.truncate(:second) |> Time.to_iso8601()
-    "<span id=\"post-created-at\">#{date} #{time}</span>"
+    "<time id=\"post-created-at\" class=\"dt-published\" datetime=\"#{date} #{time}\">#{date} #{time}</time>"
   %>
   </div>
+  <div class="e-content">
   <%= @content %>
-</div>
+  </div>
+</article>
