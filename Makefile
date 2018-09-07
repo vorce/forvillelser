@@ -3,7 +3,7 @@
 all: build ;
 
 deps: mix.exs
-    mix local.hex --force
+	mix local.hex --force
 	mix deps.get
 	touch deps
 
