@@ -11,4 +11,4 @@ clean:
 	rm -rf build
 
 build: deps
-	mix gonz.build forvillelser docs
+	mix gonz.build forvillelser build
