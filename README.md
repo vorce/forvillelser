@@ -8,7 +8,7 @@ Still work in progress.
 
 ## Hosted
 
-- Right now at: https://vorce.github.io/forvillelser/
+- Right now at [Netlify](https://www.netlify.com/): http://forvillelser.vorce.se/
 
 ## Usage
 
