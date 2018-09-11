@@ -20,12 +20,12 @@ body {
 
  h1 {
    font-weight: bolder;
-   font-size: 3.0rem;
+   font-size: 2.0rem;
    line-height: 1.2;
  }
 
  h2 {
-   font-size: 2.0rem;
+   font-size: 1.4rem;
    line-height: 1.25;
  }
 
@@ -106,7 +106,7 @@ nav ul li {
   display: inline-block;
   list-style-type: none;
   font-family: 'sweden_sansregular';
-  font-size: 17pt;
+  font-size: 15pt;
 }
 
 nav > ul > li > a {
