@@ -8,7 +8,7 @@ Still work in progress.
 
 ## Hosted
 
-- Right now at [Netlify](https://www.netlify.com/): http://forvillelser.vorce.se/
+- Right now at [Netlify](https://www.netlify.com/): https://forvillelser.vorce.se/
 
 ## Usage
 
