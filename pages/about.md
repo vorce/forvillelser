@@ -12,7 +12,7 @@ I'm <a class="p-name u-url" href="https://forvillelser.vorce.se" rel="me">Joel</
 
 I built [this site](https://github.com/vorce/forvillelser) with [gonz](https://github.com/vorce/gonz).
 
-Old blogs that now are part of this space:
+Old blogs that may or may not be assimilated:
 
-- [Vorce](http://vorce.tumblr.com/) (music blog)
-- [Förvillelser](http://forvillelser.tumblr.com/) (inspiration + personal projects)
+- [Vorce](http://vorce.tumblr.com/) ⏤ (Electronic) music blog
+- [Förvillelser](http://forvillelser.tumblr.com/) ⏤ inspiration + personal projects
