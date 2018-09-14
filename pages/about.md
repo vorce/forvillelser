@@ -14,7 +14,7 @@ I'm <a class="p-name u-url" href="https://forvillelser.vorce.se/pages/about.html
 - <a href="https://github.com/vorce" rel="me">github</a>
 - <a href="https://lobste.rs/u/vorce" rel="me">lobste.rs</a>
 - <a href="https://open.spotify.com/user/octavorce" rel="me">spotify</a>
-
+</p>
 
 I built [this site](https://github.com/vorce/forvillelser) with [gonz](https://github.com/vorce/gonz).
 
