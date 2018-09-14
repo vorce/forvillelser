@@ -9,11 +9,13 @@
 <p class="h-card">
 I'm <a class="p-name u-url" href="https://forvillelser.vorce.se/pages/about.html" rel="me">Joel</a> and you can reach me here:
 
-- <a class="u-email" href="mailto:joel@vorce.se" rel="me">joel@vorce.se</a>
-- <a href="https://twitter.com/Octavorce" rel="me">twitter</a>
-- <a href="https://github.com/vorce" rel="me">github</a>
-- <a href="https://lobste.rs/u/vorce" rel="me">lobste.rs</a>
-- <a href="https://open.spotify.com/user/octavorce" rel="me">spotify</a>
+<ul>
+  <li><a class="u-email" href="mailto:joel@vorce.se" rel="me">joel@vorce.se</a></li>
+  <li><a href="https://twitter.com/Octavorce" rel="me">twitter</a></li>
+  <li><a href="https://github.com/vorce" rel="me">github</a></li>
+  <li><a href="https://lobste.rs/u/vorce" rel="me">lobste.rs</a></li>
+  <li><a href="https://open.spotify.com/user/octavorce" rel="me">spotify</a></li>
+</ul>
 </p>
 
 I built [this site](https://github.com/vorce/forvillelser) with [gonz](https://github.com/vorce/gonz).
