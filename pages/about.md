@@ -7,7 +7,7 @@
 }
 ---
 <p class="h-card">
-I'm <a class="p-name u-url" href="https://forvillelser.vorce.se/pages/about.html" rel="me">Joel</a> and you can reach me here:
+I'm <a class="p-name u-url" href="https://forvillelser.vorce.se/about.html" rel="me">Joel</a> and you can reach me here:
 
 <ul>
   <li><a class="u-email" href="mailto:joel@vorce.se" rel="me">joel@vorce.se</a></li>
