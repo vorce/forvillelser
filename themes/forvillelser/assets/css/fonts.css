@@ -10,6 +10,14 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: "Skolar Sans Latin";
+    src: ;
+    src: url('../fonts/SkolarSansLatnWeb-Rg.woff') format('woff'), url('../fonts/SkolarSansLatnWeb-Rg.woff2') format('woff2');
+    font-weight: 400; /* Regular */
+    font-style: normal;
+}
+
 @font-face{
     font-family: 'Fira Sans';
     src: url('fonts/FiraSansCompressed-Regular.eot');
