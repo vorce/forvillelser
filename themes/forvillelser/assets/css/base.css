@@ -14,12 +14,12 @@ body {
 }
 
  h1, h2, h3, h4 {
-   letter-spacing: -.05rem;
-   font-family: 'sweden_sansregular', Helvetica-neue, Helvetica, sans-serif;
+   letter-spacing: -.03rem;
+   font-family: 'Skolar Sans Latin', Helvetica-neue, Helvetica, sans-serif;
  }
 
  h1 {
-   font-weight: bolder;
+   font-weight: bold;
    font-size: 2.0rem;
    line-height: 1.2;
  }
@@ -38,7 +38,7 @@ body {
  } */
 
 a {
-  color: #104cfb;
+  color: #124cfb;
   transition: all .1s ease;
   text-decoration: none;
 }
@@ -59,7 +59,7 @@ code {
 }
 
 blockquote {
-  font-family: 'sweden_sansregular';
+  font-family: 'Skolar Sans Latin';
   font-size: 16pt;
   font-style: italic;
   color: #666;
@@ -75,7 +75,7 @@ blockquote {
   display: inline-block;
   color: #555;
   font-size: small;
-  font-family: 'sweden_sansregular';
+  font-family: 'Fira Code';
 }
 
 div#title > h2 {
@@ -105,7 +105,7 @@ nav ul {
 nav ul li {
   display: inline-block;
   list-style-type: none;
-  font-family: 'sweden_sansregular';
+  font-family: 'Skolar Sans Latin';
   font-size: 15pt;
 }
 
