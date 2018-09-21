@@ -57,7 +57,9 @@ def build_grid(graph, {width, height}, spacing) do
 end
 
 # in init/2
-build_grid(Graph.build(), {@width, @height}, @cell_size)
+Graph.build()
+|> build_grid({@width, @height}, @cell_size)
+|> push_graph()
 ```
 
 ⏤ that's better! I actually found a bug in this function as I was writing this post ([proof](https://github.com/vorce/golux/commit/4b688b73f6332c4563eafe9e9bbf655b0d155e5f)). Here's the beautiful output:
@@ -97,6 +99,7 @@ world = Golex.random_world(...) # Get a new world from golex
 Graph.build()
 |> world_graph(world)
 |> build_grid({@width, @height}, @cell_size)
+|> push_graph()
 ```
 
 We have the living cells on the grid, great. Except the game still sucks. We need to make it move.
@@ -117,6 +120,7 @@ def handle_info(:world_tick, state) do
   Graph.build()
   |> world_graph(new_world)
   |> build_grid({@width, @height}, @cell_size)
+  |> push_graph()
 
   {:noreply, %{state | world: new_world}}
 end
