@@ -42,7 +42,7 @@ alias Scenic.Primitives
 
 🤔
 
-This is already old after three dumb lines. I will write a function since I've heard that computers are good at executing repetetive tasks. Second attempt:
+This is already old after three lines. I will write a function since I've heard that computers are good at executing repetitive tasks. Second attempt:
 
 ```elixir
 def build_grid(graph, {width, height}, spacing) do
@@ -60,7 +60,7 @@ end
 build_grid(Graph.build(), {@width, @height}, @cell_size)
 ```
 
-⏤ that's better! I actually found a bug in this function as I was writing this post ([proof](https://github.com/vorce/golux/commit/4b688b73f6332c4563eafe9e9bbf655b0d155e5f)). Here's the beautiful output: 
+⏤ that's better! I actually found a bug in this function as I was writing this post ([proof](https://github.com/vorce/golux/commit/4b688b73f6332c4563eafe9e9bbf655b0d155e5f)). Here's the beautiful output:
 
 ![golux grid](/assets/images/golux/grid.png)
 
@@ -113,7 +113,7 @@ To handle the message we have to implement `handle_info/2` - standard OTP stuff.
 
 def handle_info(:world_tick, state) do
   new_world = Golex.world_tick(state.world)
-  
+
   Graph.build()
   |> world_graph(new_world)
   |> build_grid({@width, @height}, @cell_size)
