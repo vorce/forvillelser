@@ -1,7 +1,7 @@
 <article class="h-entry" id="post">
   <div id="title">
   <h2 class="p-name">
-    <%= @front_matter.title %> <a id="permalink" title="permalink" href="<%= @content_dir <> @filename %>" class="u-url">🔗</a>
+    <%= @front_matter.title %> <a id="permalink" title="permalink" href="<%= @content_dir <> @filename %>" class="u-url">#</a>
   </h2>
   <%=
     {:ok, dt, _} = DateTime.from_iso8601(@front_matter.created_at)
