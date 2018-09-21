@@ -4,6 +4,7 @@ all: build ;
 
 deps: mix.exs
 	mix local.hex --force
+	mix local.rebar --force
 	mix deps.get
 	touch deps
 
