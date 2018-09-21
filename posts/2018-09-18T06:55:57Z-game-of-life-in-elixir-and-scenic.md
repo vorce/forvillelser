@@ -91,6 +91,14 @@ def handle_input({:cursor_button, {:left, :release, _, _}}, _input_context, stat
 end
 ```
 
+## Faster!
+
+This section came about after getting some feedback from Mr. Multerer himself on [Twitter](). What happens with the performance if we switch the cells from quads to rects?
+
+IMAGE-HERE
+
+Rects with translation is a bit faster, and probably better memory wise (although I haven't verified that).
+
 ## Wrapping up
 
 Here's the final result: [golux](https://github.com/vorce/golux)
