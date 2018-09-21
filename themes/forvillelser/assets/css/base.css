@@ -84,7 +84,6 @@ div#title > h2 {
 
 a#permalink {
   font-size: small;
-  text-decoration: none;
 }
 
 hr {
@@ -124,4 +123,43 @@ nav > ul > li > a {
 
 ul {
   list-style: circle inside;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left; 
+  width: 80%;
+}
+
+table.table-striped tbody tr:nth-of-type(odd) {
+  background: #f8f9fa;
+}
+
+table tbody tr.active,
+table.table-striped tbody tr.active {
+  background: #f0f1f4;
+}
+
+table.table-hover tbody tr:hover {
+  background: #f0f1f4;
+}
+
+table.table-scroll {
+  display: block;
+  overflow-x: auto;
+  padding-bottom: .75rem;
+  white-space: nowrap;
+}
+
+table td,
+table th {
+  border-bottom: .05rem solid #e7e9ed;
+  padding: .6rem .4rem;
+}
+
+table th {
+  border-bottom-width: .1rem;
 }

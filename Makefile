@@ -1,4 +1,4 @@
-.PHONY: build
+.PHONY: build dev
 
 all: build ;
 
@@ -12,3 +12,6 @@ clean:
 
 build: deps
 	mix gonz.build forvillelser build
+
+dev: build
+	mix gonz.serve build 4001
