@@ -172,4 +172,4 @@ Rects with translation is a bit faster than quads, and probably better memory wi
 
 This turned out to be a fun way to get to know Scenic at least a little bit. I look forward to doing more with this promising framework.
 
-Here's the code: [golux](https://github.com/vorce/golux)
+Here's the code which is using `rect` instead of quads, and has some additional controls: [golux](https://github.com/vorce/golux)
