@@ -13,14 +13,14 @@ to add a graphical view of my very old Elixir game of life *golex*. [Golex](http
 Elixir was still in beta (hipster cred?). I cloned the project, built it, and ran the text based simulation. Worked like a charm. I then looked around the code to see if it was
 sufficiently modular for building a graphical view on top. Affirmative, let's go.
 
-## Getting started with Scenic
+### Getting started with Scenic
 
 This was pretty straightforward with clear instructions for macOS in the [Getting started guide](https://hexdocs.pm/scenic/getting_started.html). It didn't take
 long at all before I was looking at the sample app and clicking around.
 
 I created a new scene, and looked at the other ones for clues on how to proceed.
 
-## The grid
+### The grid
 
 I decided to start by just drawing a 2D grid in my `GameOfLife` scene to get my feet wet.
 
@@ -66,7 +66,7 @@ Graph.build()
 
 ![golux grid](/assets/images/golux/grid.png)
 
-## The cells
+### The cells
 
 Since the grid drawing was so painless I was eager to get the cells out on the board. This turned out to also be
 quite easy. I stared at the different [primitives](https://hexdocs.pm/scenic/Scenic.Primitives.html#summary) for a bit expecting something like `rect(x, y, width, height)` (like in [processing](https://processing.org/reference/rect_.html) or [quil](http://quil.info/api/shape/2d-primitives#rect)). I found [`quad/3`](https://hexdocs.pm/scenic/Scenic.Primitives.html#quad/3) instead. It wasn't really clear to me how to translate a rect at first, so I thought let's just go with quad now to Get Shit Done.
@@ -104,7 +104,7 @@ Graph.build()
 
 We have the living cells on the grid, great. Except the game still sucks. We need to make it move.
 
-## Animation
+### Animation
 
 I'm sure there are a bunch of ways to do this but I really liked the idea of making the scene send a message to itself on a fixed interval, and that would trigger the world update + re-render. To achieve that we reach into our Erlang toolbox and find `:timer.send_interval/2` (also used in other Scenic demos). I figured that updating the scene once a second to start with should be conservative enough. I had no clue or expectations on how slow/fast scenic and golex would be.
 
@@ -126,7 +126,7 @@ def handle_info(:world_tick, state) do
 end
 ```
 
-### It's slow :(
+#### It's slow :(
 
 The one second update interval turned out to not be quite conservative enough. The updates looked a bit dodgy / not good. I measured how long it took
 to do the stuff in `handle_info/2` above and it took a bit more than a second (~1.2). Was Scenic really
@@ -134,7 +134,7 @@ this slow? Of course not. It was golex' `world_tick/1` function that was very ve
 
 ![Animated game of life](/assets/images/golux/golux.gif)
 
-## Inputs
+### Inputs
 
 Part of the fun of game of life is seeing different starting conditions play out. So adding a way to restart the game with a fresh world would be cool. A simple left click on the board to do that maybe? I was a bit confused at first on how to implement this, because I kept trying to use [`filter_event/3`](https://hexdocs.pm/scenic/Scenic.Scene.html#c:filter_event/3). That was wrong because I don't have any components in my Scene. Components can generate *events*. In our case we need to deal with lower level *inputs* with [`handle_input/3`](https://hexdocs.pm/scenic/Scenic.Scene.html#c:handle_input/3). A nice way to understand what events are available and how to handle them is to add:
 
@@ -159,7 +159,7 @@ def handle_input(_msg, _, state), do: {:noreply, state} # Need to handle all oth
 
 Voilà we have new worlds on left mouse click.
 
-## Faster!
+### Faster!
 
 This section came about after getting some feedback from Mr. Multerer himself on [twitter](https://twitter.com/Octavorce/status/1042510733391679488). What happens with the performance if we switch the cell drawing from quads to rects?
 
@@ -172,7 +172,7 @@ This section came about after getting some feedback from Mr. Multerer himself on
 
 Rects with translation is a bit faster than quads, and probably better memory wise (although I haven't actually verified that). A note on the numbers here, they were gathered from a small sample size of 27 ticks for each type with [`timer.tc/1`](https://github.com/erlang/otp/edit/maint/lib/stdlib/doc/src/timer.xml#L260). What I measured was the time it took to update the game of life world and render with Scenic.
 
-## Wrapping up
+### Wrapping up
 
 This turned out to be a fun way to get to know Scenic at least a little bit. I look forward to doing more with this promising framework.
 
