@@ -38,13 +38,13 @@ body {
  } */
 
 a {
-  color: #124cfb;
+  color: #357edd;
   transition: all .1s ease;
   text-decoration: underline;
 }
 
 a:hover {
-  color: #000;
+  color:   #00348e;
   text-decoration: none;
 }
 
