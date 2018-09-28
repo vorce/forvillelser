@@ -46,7 +46,17 @@ Plug.Conn.put_resp_header(conn, "content-encoding", "gzip")
 I knew exactly what outcome I wanted, but not quite how the implementation would look so I started with a test.
 
 ```elixir
-# TODO
+test "should gzip json data if requested" do
+  conn =
+    build_conn()
+    |> put_req_header("accept-encoding", "application/gzip")
+    |> get("/data")
+
+  assert conn.status == 200
+  assert Enum.member?(conn.resp_headers, {"content-type", "application/json; charset=utf-8"})
+  assert Enum.member?(conn.resp_headers, {"content-encoding", "gzip"})
+  assert {:ok, _} = conn.resp_body |> :zlib.gunzip() |> Poison.decode()
+end
 ```
 
 #### Attempt one
@@ -80,6 +90,4 @@ and be able to uncompress it again.
 # deflateEnd
 ```
 
-We can see how this could fit together with the chunks; call deflate on the chunk_payload and send that. Will it work?
-
-I
+With a bit of imagination we can see how this could fit together with the chunks; call deflate on the chunk_payload and send that. Will this approach pass the browser test?
