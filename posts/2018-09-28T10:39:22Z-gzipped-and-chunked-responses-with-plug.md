@@ -130,6 +130,28 @@ defmodule MyApp.ChunkCompressor do
 end
 ```
 
+Here's how a phoenix controller using our module could look like:
+
+```elixir
+def data(conn, _params) do
+  conn =
+    conn
+    |> put_resp_content_type("application/json")
+    |> MyApp.ChunkCompressor.init()
+    |> send_chunked(200)
+
+  with {:ok, conn} <- stream_data(conn),
+       {:ok, conn} <- MyApp.ChunkCompressor.chunk(conn, "", :finish) do
+    conn
+  end
+end
+
+def stream_data(conn) do
+# Stream from source
+# |> MyApp.ChunkCompressor.chunk(conn)
+end
+```
+
 Using this we can finally verify with a browser that we do get all the expected json. Celebration!
 
 ### Future
