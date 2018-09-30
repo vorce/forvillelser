@@ -14,5 +14,5 @@ I built [this site](https://github.com/vorce/forvillelser) with [gonz](https://g
 
 Old blogs that may or may not be assimilated:
 
-- [Vorce](http://vorce.tumblr.com/) ⏤ (Electronic) music blog
-- [Förvillelser at tumblr](http://forvillelser.tumblr.com/) ⏤ inspiration + personal projects
+- [Vorce](http://vorce.tumblr.com/) – (Electronic) music blog
+- [Förvillelser at tumblr](http://forvillelser.tumblr.com/) – inspiration + personal projects
