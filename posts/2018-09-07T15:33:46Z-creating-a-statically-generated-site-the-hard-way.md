@@ -16,7 +16,7 @@ Right now I am very fond of [Elixir](https://elixir-lang.org/) so naturally I lo
 I followed the README to create my site, and I hit the first road block right away.
 Obelisk didn't build out of the box. No problem, I updated one of its dependencies and continued.
 Next I tried to build my site, this time obelisk crashed and it wasn't obvious why.
-That prompted me to look closer on its github page - maybe someone else had the same problem? Uh oh, lots of PRs with no attention,  and the project seemed generally abandoned by its creator.
+That prompted me to look closer on its github page – maybe someone else had the same problem? Uh oh, lots of PRs with no attention, and the project seemed generally abandoned by its creator.
 One guy even wanted to take over the project but hadn't gotten a response :(
 
 Okay. That messed up my plan, since if I hack on this thing I'd like to give the result back
@@ -41,9 +41,9 @@ After a few more days of sporadic hacking I realized that I needed to publish F�
 With these in mind it seemed my choices were either [github pages](https://pages.github.com/) or [netlify](https://www.netlify.com/). I really liked
 the prospect of not having the baked HTML files in my repo, only the raw markdown files. Not sure why, I guess something something tidy, ridiculous nerd bullshit. That meant using netlify, because they can build the site for you. Cool beans 😎
 
-I signed up and set up my site. Boom - "Site deploy failed": `make: mix: Command not found`.
+I signed up and set up my site. Boom – "Site deploy failed": `make: mix: Command not found`.
 Not sure why I expected them to support Elixir out of the box, but hey a guy can dream.
-Started looking around for some neat workaround or whatever. No real luck, but I did find [netlify's build-image](https://github.com/netlify/build-image) repo - all open source and beautiful.
+Started looking around for some neat workaround or whatever. No real luck, but I did find [netlify's build-image](https://github.com/netlify/build-image) repo – all open source and beautiful.
 I forked that, added erlang and elixir and sent a [PR](https://github.com/netlify/build-image/pull/188).
 Surprisingly it was approved (eventually) and even merged to master!
 

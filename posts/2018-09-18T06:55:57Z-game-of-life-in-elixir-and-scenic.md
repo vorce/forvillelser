@@ -5,7 +5,7 @@
   created_at: "2018-09-18T06:55:57.531624Z"
 }
 ---
-After seeing Boyd Multerer's 2017 talk on Scenic ⏤ an OpenGL backed UI framework for Elixir/Erlang ⏤ I have been following its progress. This year at ElixirConf we got a [new talk by Mr. Multerer](https://youtu.be/1QNxLNMq3Uw) with even more impressive and polished demos, and
+After seeing Boyd Multerer's 2017 talk on Scenic – an OpenGL backed UI framework for Elixir/Erlang – I have been following its progress. This year at ElixirConf we got a [new talk by Mr. Multerer](https://youtu.be/1QNxLNMq3Uw) with even more impressive and polished demos, and
 most importantly the [Scenic repo](https://github.com/boydm/scenic) went public.
 
 I knew I wanted to build something simple to get familiar with the framework. Yesterday I came up with the brilliant idea
@@ -62,7 +62,7 @@ Graph.build()
 |> push_graph()
 ```
 
-⏤ that's better! I actually found a bug in this function as I was writing this post ([proof](https://github.com/vorce/golux/commit/4b688b73f6332c4563eafe9e9bbf655b0d155e5f)). Here's the beautiful output:
+– that's better! I actually found a bug in this function as I was writing this post ([proof](https://github.com/vorce/golux/commit/4b688b73f6332c4563eafe9e9bbf655b0d155e5f)). Here's the beautiful output:
 
 ![golux grid](/assets/images/golux/grid.png)
 
@@ -108,7 +108,7 @@ We have the living cells on the grid, great. Except the game still sucks. We nee
 
 I'm sure there are a bunch of ways to do this but I really liked the idea of making the scene send a message to itself on a fixed interval, and that would trigger the world update + re-render. To achieve that we reach into our Erlang toolbox and find `:timer.send_interval/2` (also used in other Scenic demos). I figured that updating the scene once a second to start with should be conservative enough. I had no clue or expectations on how slow/fast scenic and golex would be.
 
-To handle the message we have to implement `handle_info/2` - standard OTP stuff.
+To handle the message we have to implement `handle_info/2` – standard OTP stuff.
 
 ```elixir
 # In init/2
@@ -130,7 +130,7 @@ end
 
 The one second update interval turned out to not be quite conservative enough. The updates looked a bit dodgy / not good. I measured how long it took
 to do the stuff in `handle_info/2` above and it took a bit more than a second (~1.2). Was Scenic really
-this slow? Of course not. It was golex' `world_tick/1` function that was very very naive ⏤ but I [fixed](https://github.com/vorce/golex/pull/1) that! Didn't worry about performance after that and could lower the timer interval a lot (to 100ms).
+this slow? Of course not. It was golex' `world_tick/1` function that was very very naive – but I [fixed](https://github.com/vorce/golex/pull/1) that! Didn't worry about performance after that and could lower the timer interval a lot (to 100ms).
 
 ![Animated game of life](/assets/images/golux/golux.gif)
 
