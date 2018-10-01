@@ -10,8 +10,7 @@ most importantly the [Scenic repo](https://github.com/boydm/scenic) went public.
 
 I knew I wanted to build something simple to get familiar with the framework. Yesterday I came up with the brilliant idea
 to add a graphical view of my very old Elixir game of life *golex*. [Golex](https://github.com/vorce/golex) was one of my first Elixir projects, conceived back in 2013 when
-Elixir was still in beta (hipster cred?). I cloned the project, built it, and ran the text based simulation. Worked like a charm. I then looked around the code to see if it was
-sufficiently modular for building a graphical view on top. Affirmative, let's go.
+Elixir was still in beta (hipster cred?). I cloned the project, built it, and ran the text based simulation. Worked like a charm and the code looked modular enough to build a graphical view on top of.
 
 ### Getting started with Scenic
 
