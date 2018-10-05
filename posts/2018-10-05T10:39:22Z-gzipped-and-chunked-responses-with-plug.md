@@ -162,6 +162,9 @@ Gotta be honest I was quite confident that it would be way faster.
 | Yes         |      295M |    0:00:55 |        5427k/s | Default compression |
 
 Wha? How can it be!? Average download speed is a tenth of the baseline -- WTF!
+
+![George Costanza is also confused](/assets/images/gzip_chunks/george_costanza_wat.jpg)
+
 Very disappointing. But I slowly realized that the overhead of compressing a chunk simply didn't outweigh the size benefit.
 I started experiment with the zlib parameters to see if I could improve things:
 

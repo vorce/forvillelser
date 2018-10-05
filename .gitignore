@@ -24,3 +24,7 @@ personal_site-*.tar
 
 
 /build
+
+# macOS.. cmon 
+.DS_Store
+
