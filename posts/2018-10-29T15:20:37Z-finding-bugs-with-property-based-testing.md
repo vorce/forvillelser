@@ -35,6 +35,6 @@ More generally, it's getting apparent to me that anything where there the combin
 
 ### Conclusion
 
-I think there are way more opportunities to improve confidence in any code base with property based tests, than what we usually think.
+I think there are way more opportunities to improve confidence in any code base with property based tests than what we usually think.
 
-I'm also convinced that having this reasoning mode -- "what needs to go right?" -- in your arsenal might make some hairy issues a bit easier to work with.
+I'm also convinced that the -- "what needs to go right?" -- reasoning mode in your arsenal can make some hairy issues a bit easier to work with.
