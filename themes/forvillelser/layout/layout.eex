@@ -3,7 +3,12 @@
   <head>
     <title>Förvillelser</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="referrer" content="no-referrer" />
     <meta name="generator" content="Gonz" />
+
+    <!-- Thanks to https://webbkoll.dataskydd.net/ -->
+    <meta name="referrer" content="no-referrer" /> <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'" /> <!-- Referrer Policy -->
 
     <%= @css %>
     <%= @js %>
