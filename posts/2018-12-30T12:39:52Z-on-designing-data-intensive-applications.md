@@ -70,7 +70,7 @@ This property can be informally defined as *nothing bad happens*, the more preci
 
 > A liveness property works the other way round: it may not hold at some point in time (for example, a node may have sent a request but not yet received a response), but there is always hope that it may be satisfied in the future (namely by receiving a response).
 
-### Linearizability is stronger than casual consistency
+### Linearizability is stronger than causal consistency
 
 *Where:* Page 342, Chapter 9: Consistency and Consensus
 
