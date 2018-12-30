@@ -2,17 +2,17 @@
 %{
   title: "On Designing Data-Intensive Applications",
   description: "A kind of review of the book by Marting Kleppmann",
-  created_at: "2018-12-23T12:39:52.518240Z"
+  created_at: "2018-12-30T12:39:52.518240Z"
 }
 ---
-Designing Data-Intensive Applications -- The big ideas behind reliable, scalable, and maintainable systems -- is a book written by Martin Kleppmann, published in 2017 by O'reilly.
+Designing Data-Intensive Applications -- The big ideas behind reliable, scalable, and maintainable systems -- is a book written by [Martin Kleppmann](http://martin.kleppmann.com/), published in 2017 by O'reilly.
 
 I read this book cover-to-cover, which is probably not necessary or even recommended. But it worked quite well for me, although it took a long time to finish. Towards the end of the book
 I started thinking about writing a sort of review of it. Partly to make some of the ideas and concepts stick better, and partly because I think it's a great book that more people should read.
 
 While reading technical books I usually make markings on sections I like to get back to. Either to
 re-read, or maybe as a starting point for a small experiment of my own, or just because the page/section
-is really good. In this post I'll write a short snippet about each such marking I made for Designing Data-Intensive Applications.
+is really good. In this post I'll write a short snippet about each such marking I made for [Designing Data-Intensive Applications](http://dataintensive.net/).
 
 My expectations on the book was different than the actual content. I had the impression that
 DD-IA was going to be more like cookbook style read, recipes on how to architect scalable backend apps.
@@ -151,3 +151,5 @@ Read the book. Learn about how databases work. Learn the underlying ideas of the
 
 Think about your system holistically: correctness, behaviour in face of network partitions, observability, traceability, auditability. Think about how the system affects users and non-users.
 Think about data as a potentially hazardous asset.
+
+This is a book I recommend all developers read.
