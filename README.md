@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/vorce/forvillelser.svg?branch=master)](https://travis-ci.org/vorce/forvillelser)
+[![Build Status](https://travis-ci.org/vorce/forvillelser.svg?branch=master)](https://travis-ci.org/vorce/forvillelser) [![Netlify Status](https://api.netlify.com/api/v1/badges/5faac5e8-718c-4a48-b545-8ffbe239272e/deploy-status)](https://app.netlify.com/sites/forvillelser/deploys)
 
 # Förvillelser
 
