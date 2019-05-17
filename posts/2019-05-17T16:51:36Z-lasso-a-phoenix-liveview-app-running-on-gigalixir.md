@@ -5,9 +5,9 @@
   created_at: "2019-05-17T16:51:36.428007Z"
 }
 ---
-In this post I'll outline my how I built [Lasso](http://lasso.gigalixirapp.com/), my first Phoenix Liveview app and how I deployed it to Gigalixir. The [Lasso code](https://github.com/vorce/lasso) is available on github.
+In this post I'll outline how I built [Lasso](http://lasso.gigalixirapp.com/), my first Phoenix Liveview app and how I deployed it to Gigalixir. The [Lasso code](https://github.com/vorce/lasso) is available on github.
 
-I've been meaning to play with [Phoenix LiveView](https://github.com/phoenixframework/phoenix_live_view) since the moment it came out. A year or so ago I wanted to build something similar to [webhookinbox](http://webhookinbox.com/) - which I find quite handy. But I never got started on it. However I had three hours to kill on the train to CodeBEAM STO and figured this could be something suitable for trying LiveView on.
+I've been meaning to play with [Phoenix LiveView](https://github.com/phoenixframework/phoenix_live_view) since the moment it came out. A year or so ago I wanted to build something similar to [webhookinbox](http://webhookinbox.com/) - which I find quite handy. But I never got started on it. However I had three hours to kill on the train to Code BEAM STO and figured this could be something suitable for trying LiveView on.
 
 The idea is to have a web page where you can see HTTP requests to a  certain URL. The spicy part would be to be able to see those request as they come in -- live.
 
@@ -15,13 +15,13 @@ The idea is to have a web page where you can see HTTP requests to a  certain URL
 
 Nothing exciting here. Standard phoenix project, without ecto since I don't want a database for this: `mix phx.new --no-ecto lasso`
 
-After that I followed the instructions for adding LiveView in its [README](https://github.com/phoenixframework/phoenix_live_view#installation).
+After that I followed the instructions for adding LiveView from its [README](https://github.com/phoenixframework/phoenix_live_view#installation).
 
 ### Main pieces
 
 I quickly realize I needed a couple of different components:
 
-1. A way to create a new, unique URL destination (with TTL) that can accept HTTP requests
+1. A way to create a new, unique URL destination (that expires) which can accept HTTP requests
 2. A page that you can share to view those requests as they come in
 3. Some sort of state of historic requests per destination (sliding window of some size)
 
@@ -36,14 +36,15 @@ An example destination URL would be `http://localhost:4000/hooks/3c72c523-9f8c-4
 ### Visualizing the requests
 
 Here's where LiveView gets into the picture. To view the
-requests we need a separate URL, it is connected to the destination by using the same uuid. A visualization URL for the example destination would then be `http://localhost:4000/lasso/3c72c523-9f8c-4ae9-98c9-faa878d12f58`. Here once again we check that the uuid is in the cache before serving the page. To serve the page
-we will need to create a LiveView view.
+requests we need a page connected to the destination, the uuid is perfect for that. The visualization URL for the example destination would be `http://localhost:4000/lasso/3c72c523-9f8c-4ae9-98c9-faa878d12f58`. Here once again we need to check that the uuid is in the cache before serving the page. To serve the page we will finally need to create a LiveView.
 
-Most of the examples I've seen of LiveView views has its template inlined in code with a sigil. I wanted to use a separate file for it so the first thing I did was to create a `.leex` file and put some text with a link to the destination URL in it. This works just like a normal `.eex` template so far, nothing live about it yet.
+Most of the examples I've seen of LiveView has the template inlined in code with a sigil. I wanted to use a separate file for it so the first thing I did was to create a `.leex` file and put some text with a link to the destination URL in it. This works just like a normal `.eex` template so far, nothing live about it yet.
 
 #### Live updates
 
-I had no idea how to actually "trigger" the update. Most examples I found used some element on the page that was served (using `phx-click`) to trigger updates. I needed something entirely decoupled from the page to be the trigger (specifically the request to the destination URL). Luckily I found something interesting in the [phoenix_live_view_example](https://github.com/chrismccord/phoenix_live_view_example) repo. In the CRUD demo whenever a user is created/updated/deleted a liveview will know about it.
+I had no idea how to actually "trigger" the update. Most examples I found used some element on the page that was served (using `phx-click`) to trigger updates. I needed something entirely decoupled from the page to be the trigger (specifically the request to the destination URL).
+
+Luckily I found something interesting in the [phoenix_live_view_example](https://github.com/chrismccord/phoenix_live_view_example) repo. In the CRUD demo whenever a user is created/updated/deleted a liveview will know about it.
 To accomplish that the [demo](https://github.com/chrismccord/phoenix_live_view_example/blob/master/lib/demo/accounts/accounts.ex#L66) uses Phoenix.PubSub.
 
 I had never used [Phoenix PubSub](https://github.com/phoenixframework/phoenix_pubsub) before so got pretty excited in trying that out as well. At the same time it seems a bit overkill since I will only run Lasso on one machine (to start with).
@@ -54,8 +55,7 @@ request details to the pubsub topic. Since the LiveView view is a process itself
 
 ### History
 
-Now we can see updates on the page! That's cool. But to make the project actually useful you want to be able to share the view URL and
-let others see the same thing, including any requests that came in before they opened the page. To accomplish that we have to store some state of previous requests.
+Now we can see updates on the page! That's very cool. To make the project more useful you might want to be able to share the view URL and let others see the same thing, including any requests that came in before they opened the page. To accomplish that we have to store some state of previous requests.
 
 Luckily we have the cache where the uuid is stored, with a very small change we can associate it with a list of requests.
 And every time a destination URL is hit we append to that list.
@@ -76,6 +76,6 @@ Adding SSL was also smooth. If you are building an elixir app and want somewhere
 
 ### Recap
 
-- Phoenix LiveView is very cool and super useful to add some interactive elements to your elixir web app.
+- Phoenix LiveView is very cool and super useful for adding some interactive elements to your elixir phoenix app.
 - Gigalixir is impressively easy to use and its free tier quite capable
-- Train rides are the best (I wrote this blog post on the way back from CodeBEAM STO)
+- Train rides are the best (I wrote this blog post on the way back from [Code BEAM STO](codesync.global/conferences/code-beam-sto-2019/))
