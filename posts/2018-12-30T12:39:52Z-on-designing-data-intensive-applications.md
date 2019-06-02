@@ -1,7 +1,7 @@
 ---
 %{
   title: "On Designing Data-Intensive Applications",
-  description: "A kind of review of the book by Marting Kleppmann",
+  description: "A kind of review of the Designing Data-Intensive Applications book by Marting Kleppmann",
   created_at: "2018-12-30T12:39:52.518240Z"
 }
 ---

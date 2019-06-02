@@ -1,7 +1,7 @@
 ---
 %{
   title: "Goodbye Tumblr",
-  description: "First post",
+  description: "First post on my self hosted blog, bye to Tumblr",
   created_at: "2018-08-11T17:51:32.902303Z"
 }
 ---
