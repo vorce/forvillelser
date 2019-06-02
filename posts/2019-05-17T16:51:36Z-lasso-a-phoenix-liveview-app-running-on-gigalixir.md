@@ -1,7 +1,7 @@
 ---
 %{
   title: "Lasso - a Phoenix LiveView app running on Gigalixir",
-  description: "How I built Lasso, my first liveview app",
+  description: "How I built Lasso, my first phoenix liveview app",
   created_at: "2019-05-17T16:51:36.428007Z"
 }
 ---
