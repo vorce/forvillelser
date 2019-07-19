@@ -2,7 +2,7 @@
 %{
   title: "About",
   description: "The about page",
-  nav_item: true,
+  categories: [:nav_item],
   created_at: "2018-08-09T17:51:32.905935Z"
 }
 ---

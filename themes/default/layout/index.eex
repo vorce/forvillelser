@@ -1,7 +1,7 @@
 <div class="index">
   <%= Enum.map @posts, fn post ->
     """
-    <h2><a href="#{post.category}/#{post.filename}">#{post.markdown.front_matter.title}</a></h2>
+    <h2><a href="#{post.type}/#{post.filename}">#{post.markdown.front_matter.title}</a></h2>
     #{post.html_content}
     <hr />
     """
