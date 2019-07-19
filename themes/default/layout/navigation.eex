@@ -1,10 +1,10 @@
 <div id="nav">
   <ul>
   <%= Enum.map(@items, fn item ->
-    url = if item.category == :index do
+    url = if item.type == :index do
       "#{@href_prefix}#{item.filename}"
     else
-      "#{@href_prefix}#{item.category}/#{item.filename}"
+      "#{@href_prefix}#{item.type}/#{item.filename}"
     end
     """
     <li><a href="#{url}">#{item.markdown.front_matter.title}</a></li>

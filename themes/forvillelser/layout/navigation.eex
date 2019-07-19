@@ -1,8 +1,8 @@
 <nav>
   <ul>
   <%= Enum.map(@items, fn item ->
-    url = if item.category == :posts do
-      "#{@href_prefix}#{item.category}/#{item.filename}"
+    url = if item.type == :posts do
+      "#{@href_prefix}#{item.type}/#{item.filename}"
     else
       "#{@href_prefix}#{item.filename}"
     end
