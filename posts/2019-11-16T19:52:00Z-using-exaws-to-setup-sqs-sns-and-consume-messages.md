@@ -2,9 +2,10 @@
 %{
   title: "Using ExAws to setup SQS, SNS, and consume messages",
   description: "How to piece together ex_aws libraries for a working application",
-  created_at: "2018-08-28T19:52:35.394278Z"
+  created_at: "2019-11-16T19:52:35.394278Z"
 }
 ---
+
 ExAws is a collection of Elixir libraries to interact with Amazon Web Services.
 
 The [ExAws](https://github.com/ex-aws/ex_aws) documentation is in general very good, but I figured it would be nice to show example code of a concrete solution using a small subset of the functionality. Hopefully you can expand/modify the code to your own needs. I assume the reader is familiar with [Elixir](https://elixir-lang.org) and has some basic [AWS](https://aws.amazon.com/) knowledge.
@@ -27,8 +28,8 @@ In `mix.exs`:
 ```elixir
 defp deps do
   [
-    {:ex_aws, "~> 2.0"},
-    {:ex_aws_sqs, "~> 2.0"},
+    {:ex_aws, "~> 2.1"},
+    {:ex_aws_sqs, "~> 3.0"},
     {:ex_aws_sns, "~> 2.0"},
     {:sweet_xml, "~> 0.6"}
   ]
@@ -157,6 +158,7 @@ def set_subscription_attributes(subscription_arn, opts \\ []) do
   |> ExAws.request()
 end
 ```
+
 The subscription_arn is conveniently returned in the response from the `subscribe` function. How the filter option look depend on the messages you expect, but here’s an example:
 
 ```elixir
@@ -182,6 +184,8 @@ defmodule ExAwsExample.SQSConsumer do
   @moduledoc """
   Consumes messages from a SQS queue
   """
+  alias ExAws.SQS
+
   require Logger
 
   use GenServer
@@ -226,6 +230,14 @@ defmodule ExAwsExample.SQSConsumer do
     end
   end
 
+  defp get_messages(queue_name, opts) do
+    queue_name
+    |> SQS.receive_message(opts)
+    |> ExAws.request()
+
+    with {:ok, %{body: %{messages: messages}}} <- result, do: {:ok, messages}
+  end
+
   def process_messages(messages) do
     Enum.each(messages, fn message ->
       Logger.info("Handling message: #{inspect(message)}")
@@ -245,14 +257,28 @@ end
 
 We are missing one thing though. After we are done with the message we should remove it so that no other consumer will also process it.
 
-...
+```elixir
+def delete_message(queue, receipt) do
+  queue
+  |> SQS.delete_message(receipt)
+  |> ExAws.request()
+end
+```
+
+The `receipt` is an identifier for the message, contained in the message itself. Let's call `delete_message/2` after `process_messages/1`:
+
+```elixir
+messages
+|> Enum.each(fn %{receipt_handle: receipt_handle} ->
+  delete_message(@queue_name, receipt_handle)
+end)
+```
+
+**Note:** You really want to only delete the message if the processing of it went well. If something goes wrong consider using [deadletter queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html).
 
 ## Putting it together
 
 We now have most of the pieces we need to have a working application.
 Full code and instructions on how to run it here: http://github.com/vorce/ex_aws_example
 
-
 Happy Elixir hacking!
-
-
