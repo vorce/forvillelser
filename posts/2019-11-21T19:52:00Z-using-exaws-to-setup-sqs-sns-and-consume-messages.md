@@ -18,7 +18,7 @@ In this post I will describe how to accomplish the following with Elixir and ExA
 4. Consume messages from the SQS queue
 
 The presented code will be functioning but of prototype nature. That means tests, error handling and refactoring opportunities are left to the reader as an exercise ;-)
-If you want to jump straight to the code: https://github.com/vorce/ex_aws_example
+If you want to jump straight to the code it is up on [github](https://github.com/vorce/ex_aws_example).
 
 ## Setup
 
@@ -312,6 +312,6 @@ end)
 
 We now have most of the pieces we need to have a working application.
 
-Full code and instructions on how to run it here: https://github.com/vorce/ex_aws_example
+Full code and instructions on how to run it [here](https://github.com/vorce/ex_aws_example).
 
 Happy Elixir hacking!
