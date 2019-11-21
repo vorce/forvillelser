@@ -18,7 +18,8 @@ In this post I will describe how to accomplish the following with Elixir and ExA
 4. Consume messages from the SQS queue
 
 The presented code will be functioning but of prototype nature. That means tests, error handling and refactoring opportunities are left to the reader as an exercise ;-)
-If you want to jump straight to the code it is up on [github](https://github.com/vorce/ex_aws_example).
+
+If you want to jump straight to the code it is up on [github.com/vorce/ex_aws_example](https://github.com/vorce/ex_aws_example).
 
 ## Setup
 
@@ -306,7 +307,7 @@ messages
 end)
 ```
 
-**Note:** You really want to only delete the message if the processing of it went well. If something goes wrong consider using [deadletter queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html).
+**Note:** You really want to only delete the message if you know the processing of it went well. If something goes wrong consider using [deadletter queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html).
 
 ## Putting it together
 
@@ -314,4 +315,4 @@ We now have most of the pieces we need to have a working application.
 
 Full code and instructions on how to run it [here](https://github.com/vorce/ex_aws_example).
 
-Happy Elixir hacking!
+Happy Elixir AWS hacking!
