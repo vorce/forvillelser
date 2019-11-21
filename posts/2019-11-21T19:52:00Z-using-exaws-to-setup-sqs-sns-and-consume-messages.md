@@ -34,7 +34,8 @@ defp deps do
     {:ex_aws_sqs, "~> 3.0"},
     {:ex_aws_sns, "~> 2.0"},
     {:sweet_xml, "~> 0.6"},
-    {:hackney, "~> 1.15"}
+    {:hackney, "~> 1.15"},
+    {:poison, "~> 4.0"}
   ]
 end
 ```
@@ -67,7 +68,7 @@ To create a subscription we need to use [`ExAws.SNS.subscribe/3`](https://hexdoc
 
 ![AWS SNS Subscription options](/assets/images/ex_aws/aws_sns_subscription_options.png)
 
-So far I know these values work: `"email"`, `"http"`, `"https"`, `"email"`, and `"sqs"` - in this example we will use `"sqs"`. The third
+So far I know these values work: `"email"`, `"http"`, `"https"`, and `"sqs"` - in this example we will use `"sqs"`. The third
 parameter to the `subscribe` function is a string called `endpoint`, this is where the message from the topic will go. In our SQS case this will be the ARN of the SQS queue we want the messages from the SNS topic to end up in. How do we get the ARN of the queue then? Ideally it would be returned in the response from the `create_queue` call, but it's not. We do get the queue URL back from that call though and we can transform it to the ARN.
 
 With our new knowledge let's add a new alias and two functions to our module.
@@ -91,7 +92,7 @@ defp queue_url_to_arn(queue_url) do
 end
 ```
 
-Let's run our code. To do that we need AWS credentials. The easiest way is to set the two environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (more info in [ex_aws docs](https://github.com/ex-aws/ex_aws#aws-key-configuration)) for our iex session. We also want to explicitly set the [region in config.exs](https://github.com/ex-aws/ex_aws#aws-region-configuration): `AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... iex -S mix`
+Let's run our code. To do that we need to specify our AWS credentials. The easiest way is to set the two environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (more info in [ex_aws docs](https://github.com/ex-aws/ex_aws#aws-key-configuration)) for our iex session. We also want to explicitly set the [region in config.exs](https://github.com/ex-aws/ex_aws#aws-region-configuration): `AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... iex -S mix`
 
 Here's how to use our two functions to create a queue, and then set up a subscription:
 
