@@ -12,7 +12,7 @@ clean:
 	rm -rf build
 
 build: deps
-	mix gonz.build forvillelser build
+	mix gonz.build forvillelser build 1
 
 dev: build
 	mix gonz.serve build 4001
