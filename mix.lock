@@ -1,11 +1,11 @@
 %{
-  "cowboy": {:hex, :cowboy, "2.4.0", "f1b72fabe9c8a5fc64ac5ac85fb65474d64733d1df52a26fad5d4ba3d9f70a9f", [:rebar3], [{:cowlib, "~> 2.3.0", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, "~> 1.5.0", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm"},
-  "cowlib": {:hex, :cowlib, "2.3.0", "bbd58ef537904e4f7c1dd62e6aa8bc831c8183ce4efa9bd1150164fe15be4caa", [:rebar3], [], "hexpm"},
-  "earmark": {:hex, :earmark, "1.2.5", "4d21980d5d2862a2e13ec3c49ad9ad783ffc7ca5769cf6ff891a4553fbaae761", [:mix], [], "hexpm"},
-  "gonz": {:git, "https://github.com/vorce/gonz.git", "42d550404b6f9ea474d7779042b26aebff076df0", [branch: "master"]},
-  "mime": {:hex, :mime, "1.3.0", "5e8d45a39e95c650900d03f897fbf99ae04f60ab1daa4a34c7a20a5151b7a5fe", [:mix], [], "hexpm"},
-  "plug": {:hex, :plug, "1.6.3", "43088304337b9e8b8bd22a0383ca2f633519697e4c11889285538148f42cbc5e", [:mix], [{:cowboy, "~> 1.0.1 or ~> 1.1 or ~> 2.4", [hex: :cowboy, repo: "hexpm", optional: true]}, {:mime, "~> 1.0", [hex: :mime, repo: "hexpm", optional: false]}], "hexpm"},
-  "ranch": {:hex, :ranch, "1.5.0", "f04166f456790fee2ac1aa05a02745cc75783c2bfb26d39faf6aefc9a3d3a58a", [:rebar3], [], "hexpm"},
+  "cowboy": {:hex, :cowboy, "2.4.0", "f1b72fabe9c8a5fc64ac5ac85fb65474d64733d1df52a26fad5d4ba3d9f70a9f", [:rebar3], [{:cowlib, "~> 2.3.0", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, "~> 1.5.0", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm", "ada25dbfd4e8779c5903471d8a84e98c303975b26619f1a5cb2b9c2b5d08414a"},
+  "cowlib": {:hex, :cowlib, "2.3.0", "bbd58ef537904e4f7c1dd62e6aa8bc831c8183ce4efa9bd1150164fe15be4caa", [:rebar3], [], "hexpm", "d69585839b7354141e05e9687490e1c75d4dea82ee77a4ff904ea5198b94d89b"},
+  "earmark": {:hex, :earmark, "1.2.5", "4d21980d5d2862a2e13ec3c49ad9ad783ffc7ca5769cf6ff891a4553fbaae761", [:mix], [], "hexpm", "c57508ddad47dfb8038ca6de1e616e66e9b87313220ac5d9817bc4a4dc2257b9"},
+  "gonz": {:git, "https://github.com/vorce/gonz.git", "ee83feb3878e1e4f588ae6a20d84826e8b8b5a69", [branch: "master"]},
+  "mime": {:hex, :mime, "1.3.0", "5e8d45a39e95c650900d03f897fbf99ae04f60ab1daa4a34c7a20a5151b7a5fe", [:mix], [], "hexpm", "5e839994289d60326aa86020c4fbd9c6938af188ecddab2579f07b66cd665328"},
+  "plug": {:hex, :plug, "1.6.3", "43088304337b9e8b8bd22a0383ca2f633519697e4c11889285538148f42cbc5e", [:mix], [{:cowboy, "~> 1.0.1 or ~> 1.1 or ~> 2.4", [hex: :cowboy, repo: "hexpm", optional: true]}, {:mime, "~> 1.0", [hex: :mime, repo: "hexpm", optional: false]}], "hexpm", "6ff7832fd9e3ab4a9a2d9f7330392b092555709277af4acbc5d56051adc769e7"},
+  "ranch": {:hex, :ranch, "1.5.0", "f04166f456790fee2ac1aa05a02745cc75783c2bfb26d39faf6aefc9a3d3a58a", [:rebar3], [], "hexpm", "86d40fc42aa47bcb6952ddf1dbfd3da04b5ba69afb65c322c99845913250b11f"},
   "yamerl": {:hex, :yamerl, "0.7.0", "e51dba652dce74c20a88294130b48051ebbbb0be7d76f22de064f0f3ccf0aaf5", [], [], "hexpm"},
   "yaml_elixir": {:hex, :yaml_elixir, "2.1.0", "79ec163e0f379dadf4b0e8b5162567dc1feb96c3cfa793105869e2c616ab4342", [], [{:yamerl, "~> 0.7", [hex: :yamerl, repo: "hexpm", optional: false]}], "hexpm"},
 }
