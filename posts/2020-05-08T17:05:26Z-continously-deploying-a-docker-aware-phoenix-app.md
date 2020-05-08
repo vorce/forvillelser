@@ -14,7 +14,7 @@ There's a bunch of key elements needed to make this CD thing happen. Here's what
 
 ### Web app
 
-I have a web app, running inside a docker container. The application receives and handles http requests. It happens to be a Elixir [phoenix](https://phoenixframework.org/) app, but that is not important.
+I have a web app, running inside a docker container. The application receives and handles http requests. It happens to be a Elixir [phoenix](https://phoenixframework.org/) app, but that is not important except for making sense of the code samples in this post.
 
 ### Docker container
 
