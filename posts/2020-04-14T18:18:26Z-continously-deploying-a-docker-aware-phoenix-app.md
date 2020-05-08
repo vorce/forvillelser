@@ -14,12 +14,12 @@ There's a bunch of key elements needed to make this CD thing happen. Here's what
 
 ### Web app
 
-I have a web app, running inside a docker container. The application receives and handles http requests.
+I have a web app, running inside a docker container. The application receives and handles http requests. It happens to be a Elixir [phoenix](https://phoenixframework.org/) app, but that is not important.
 
 ### Docker container
 
 The docker container is hosted on dockerhub. It gets built and pushed by a github action on master commits.
-That it is specifically dockerhub is not the most important part. The most important part is that you have a way to know when a new version/tag
+That it is specifically dockerhub is not important either. The most important part is that you have a way to know when a new version/tag
 is available. For example by setting up a [webhook](https://docs.docker.com/docker-hub/webhooks/).
 
 I could also have opted to not do docker at all, but decided to go with it since I want as few dependencies on my server as possible.
@@ -99,7 +99,7 @@ curl: (7) Couldn't connect to server
 ls: /var/run/docker.sock: No such file or directory
 ```
 
-I knew that. Ahem. Can I..?
+I knew that. Ahem. Can I mount it in to the image from the host?
 
 ```bash
 me@ubuntu-host:~$ docker run -ti -v /var/run/docker.sock:/var/run/docker.sock alpine:latest sh
@@ -108,23 +108,115 @@ me@ubuntu-host:~$ docker run -ti -v /var/run/docker.sock:/var/run/docker.sock al
 [{"ID":"a41ku9ne..", ...moar json..}]
 ```
 
-Holy crap yes. So mounting in the docker socket from the host works.
+Holy crap yes!
 
-TBD: Permissions
-TBD: Get service Id and Version
-TBD: Post update
+#### Permissions
 
-### Different ideas
+After mounting in the docker socket into my app's container I hit the next issue. The user in the container doesn't have root access, nor read/write permission to `/var/run/docker.sock`.
+
+This took a while to get around, and I am not too pleased with the "fix" since it is quite brittle.
+I ended up adding the user running the app to the group that owns docker.sock on the host in the [Dockerfile](https://github.com/vorce/playlist_log/blob/master/Dockerfile#L49) -- eeew.
+
+If I want to run the container on a different host I would most likely need to change that :/
+
+Anyone has a better way? Please get in touch (create an [issue on playlistlog](https://github.com/vorce/playlist_log/issues) or something).
+
+#### Get service Id and Version
+
+Ok so the infrastructure is in place. We can communicate with the Docker API from our app. To update a swarm service you need some information that we first have to get (see the [API docs](https://docs.docker.com/engine/api/v1.40/#operation/ServiceDelete)). We will need the swarm service id, and its version.
+
+To get the service details I request all running services from the Docker API and then pick out the one that has the correct name.
+
+```elixir
+@docker_socket "/var/run/docker.sock"
+@socket_path URI.encode_www_form(@docker_socket)
+@protocol "http+unix://"
+@base_url @protocol <> @socket_path
+
+@doc """
+Gets the service details for playlistlog
+Docker API: https://docs.docker.com/engine/api/v1.40/#operation/ServiceList
+"""
+def get_service_details() do
+  url = @base_url <> "/services"
+
+  with {:ok, %HTTPoison.Response{status_code: 200, body: body}} <- HTTPoison.get(url),
+        {:ok, services} <- Jason.decode(body) do
+    find_service_details(services)
+  else
+    unexpected -> {:error, :get_service_details, unexpected}
+  end
+end
+
+def find_service_details(services) do
+  Enum.find_value(services, {:error, :no_playlistlog_service}, fn service ->
+    if get_in(service, ["Spec", "Name"]) == "playlistlog" do
+      {:ok, service}
+    end
+  end)
+end
+```
+
+#### Post the service update
+
+We're getting close. Now all that is left is to create the payload for the update service request and post it.
+An important detail that's not entirely clear from the documentation is that the payload must be complete, ie all fields should be present not only the ones we want to update.
+
+Good thing that we have the full service details from the `get_service_details/1` call.
+
+```elixir
+@doc """
+Update a service
+POST /services/(id)/update
+Docker API docs: https://docs.docker.com/engine/api/v1.40/#operation/ServiceUpdate
+"""
+def update_service(service, tag, base_url \\ @base_url) do
+  id = Map.get(service, "ID")
+  version = get_in(service, ["Version", "Index"])
+  url = base_url <> "/services/#{id}/update?version=#{version}"
+  headers = ["content-type": "application/json"]
+  payload = update_payload(service, tag)
+  details = [url: url, id: id, version: version, tag: tag, payload: filtered(payload)]
+
+  case HTTPoison.post(url, Jason.encode!(payload), headers) do
+    {:ok, %HTTPoison.Response{status_code: 200}} ->
+      Logger.info("Successfully updated service, details: #{inspect(details)}")
+
+    unexpected ->
+      {:error, :update_service, unexpected}
+  end
+end
+
+defp update_payload(service, tag) do
+  service_spec = Map.fetch!(service, "Spec")
+
+  put_in(
+    service_spec,
+    ["TaskTemplate", "ContainerSpec", "Image"],
+    "vorce/playlistlog:#{tag}"
+  )
+end
+
+# Remove env variables and their values (since they may contain secrets)
+defp filtered(payload) do
+  put_in(payload, ["TaskTemplate", "ContainerSpec", "Env"], ["***filtered***"])
+end
+```
+
+### Other ideas
 
 I went through a couple of different ideas before settling on the implementation I have now.
 
-Nomad, traefik, k8s, ...
+[Nomad](https://www.nomadproject.io/), [traefik](https://containo.us/traefik/), [k8s](https://kubernetes.io/) were all on the table at one point or another. The [github issue for setting up CD](https://github.com/vorce/playlist_log/issues/7) served as a brain dump and log.
 
-## App code
+Would it have been even simpler to set up Continuous Deployment with anything else? I think maybe yes, but then again you would add another dependency.
 
-TBD
+## Show me the code
 
-## References
+Another convenient benefit of this approach that most of the workflow is documented in a sort of logical place. In the application code itself. Here's how it's implemented for Playlistlog: [controller](https://github.com/vorce/playlist_log/blob/master/lib/playlist_log_web/controllers/dockerhub_controller.ex) + [logic](https://github.com/vorce/playlist_log/blob/master/lib/playlist_log/dockerhub.ex)
 
-https://medium.com/@iaincollins/docker-swarm-automated-deployment-cb477767dfcf
+## Conclusion
 
+I'm happy with this setup. I think it is pragmatic, works well, and does not make me overly reliant on a particular server setup. As long as I have docker and access to the docker socket (this might not be common though?) I should be able to run this setup anywhere.
+
+I would love to hear suggestions for improvements or alternative ways -- my contact details are on the [about page](/about.html).
