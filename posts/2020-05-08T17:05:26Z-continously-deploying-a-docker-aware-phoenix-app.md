@@ -14,7 +14,7 @@ There's a bunch of key elements needed to make this CD thing happen. Here's what
 
 ### Web app
 
-I have a web app, running inside a docker container. The application receives and handles http requests. It happens to be a Elixir [phoenix](https://phoenixframework.org/) app, but that is not important except for making sense of the code samples in this post.
+I have a web app, running inside a docker container. The application receives and handles HTTP requests. It happens to be an Elixir [phoenix](https://phoenixframework.org/) app, but that is not important except for making sense of the code samples in this post.
 
 ### Docker container
 
@@ -51,14 +51,14 @@ Sounds very easy.
 
 ### Handling the webhook request
 
-To do this we obviously need a http server and... an app to parse the json, pick out the tag, and then trigger the second step.
+To handle the request we need a HTTP server and... something to parse the json, pick out the tag, and then trigger the second step.
 
-There are a bunch of available software that's made to do exactly this. The problem I encountered while looking at some of those apps is that none of them are Invented Here. Nah just kidding. The problem is that they are all quite generic, so you have to learn how to configure, deploy, test, and operate them. And some of them require runtimes (like Python 2, or Ruby), which I do not want to install. I was seriously considering writing my first golang program to do the job. In a super tailored, specific and minimal way (I don't need to handle any webhook, just the one from dockerhub). But again, it would require a http server, a new entry in my nginx config etc.
+There are a bunch of available software that's made to do exactly this. The problem I encountered while looking at some of those apps is that none of them are Invented Here. Nah just kidding. The problem is that they are all quite generic, so you have to learn how to configure, deploy, test, and operate them. And some of them require runtimes (like Python 2, or Ruby), which I do not want to install. I was seriously considering writing my first golang program to do the job. In a super tailored, specific and minimal way (I don't need to handle any webhook, just the one from dockerhub). But again, it would require a HTTP server, a new entry in my nginx config etc.
 
-I already have a http server! And an app that handles incoming http requests - my own webapp. Why not add a route for the webhook request there?
+I already have a HTTP server! And an app that handles incoming HTTP requests - my own webapp. Why not add a route for the webhook request there?
 Well we are then coupling the app to dockerhub which doesn't make a lot of sense. I decided that in this case it seems worth it.
 
-On to the next problem then. If the webhook handler is running inside a docker container, how can I communicate to the outside host? And how do I tell swarm to update?
+On to the next problem then. How can I communicate to the outside host and tell it to update when the webhook handler is running inside docker?
 
 ### Talking to docker inside docker
 
@@ -112,10 +112,10 @@ Holy crap yes!
 
 #### Permissions
 
-After mounting in the docker socket into my app's container I hit the next issue. The user in the container doesn't have root access, nor read/write permission to `/var/run/docker.sock`.
+After mounting in the docker socket into my app's container I hit the next issue. The user in the container doesn't have read/write permission to `/var/run/docker.sock`, nor root access.
 
-This took a while to get around, and I am not too pleased with the "fix" since it is quite brittle.
-I ended up adding the user running the app to the group that owns docker.sock on the host in the [Dockerfile](https://github.com/vorce/playlist_log/blob/master/Dockerfile#L49) -- eeew.
+This took a while to get around, and I am not too pleased with the "fix" since it's brittle.
+I ended up adding the user running the app to the group that owns docker.sock on the host in my [Dockerfile](https://github.com/vorce/playlist_log/blob/master/Dockerfile#L49) -- eeew.
 
 If I want to run the container on a different host I would most likely need to change that :/
 
@@ -125,7 +125,7 @@ Anyone has a better way? Please get in touch (create an [issue on playlistlog](h
 
 Ok so the infrastructure is in place. We can communicate with the Docker API from our app. To update a swarm service you need some information that we first have to get (see the [API docs](https://docs.docker.com/engine/api/v1.40/#operation/ServiceDelete)). We will need the swarm service id, and its version.
 
-To get the service details I request all running services from the Docker API and then pick out the one that has the correct name.
+To get the service details I request all running services from the Docker API and then pick out the service with the correct name.
 
 ```elixir
 @docker_socket "/var/run/docker.sock"
@@ -209,7 +209,7 @@ I went through a couple of different ideas before settling on the implementation
 
 [Nomad](https://www.nomadproject.io/), [traefik](https://containo.us/traefik/), [k8s](https://kubernetes.io/) were all on the table at one point or another. The [github issue for setting up CD](https://github.com/vorce/playlist_log/issues/7) served as a brain dump and log.
 
-Would it have been even simpler to set up Continuous Deployment with something else? Likely, but then again you would need another dependency.
+Would it have been simpler to set up Continuous Deployment with something else? Maybe, but then again you would need another dependency.
 
 ## Show me the code
 
