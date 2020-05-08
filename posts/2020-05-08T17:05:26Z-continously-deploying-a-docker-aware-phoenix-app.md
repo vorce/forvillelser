@@ -213,7 +213,7 @@ Would it have been simpler to set up Continuous Deployment with something else? 
 
 ## Show me the code
 
-Another convenient benefit of this approach that most of the workflow is documented in a sort of logical place. In the application code itself. Here's how it's implemented for Playlistlog: [controller](https://github.com/vorce/playlist_log/blob/master/lib/playlist_log_web/controllers/dockerhub_controller.ex) + [logic](https://github.com/vorce/playlist_log/blob/master/lib/playlist_log/dockerhub.ex).
+A convenient benefit with this approach is that the workflow is documented as part of the application code itself. Here's the implementation for Playlistlog: [controller](https://github.com/vorce/playlist_log/blob/master/lib/playlist_log_web/controllers/dockerhub_controller.ex) + [logic](https://github.com/vorce/playlist_log/blob/master/lib/playlist_log/dockerhub.ex).
 
 ## Conclusion
 
