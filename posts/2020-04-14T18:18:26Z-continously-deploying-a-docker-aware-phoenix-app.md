@@ -6,7 +6,7 @@
 }
 ---
 
-One of the things I knew I really wanted for [Playlistlog](/posts/2020-04-05-playlistlog.html) was to do Continous Delivery on pushes to the master branch. This is a workflow I enjoy a lot, and I think contributes to a healthier development cycle. When using [Gigalixir](https://gigalixir.com/) (for [Lasso](https://lasso.gigalixirapp.com/)) CD came for free. At work I have previously used Mesos+Marathon, AWS Elastic Beanstalk, and Kubernetes to set up different CD workflows. Since Playlistlog is hosted on a Digital Ocean droplet I don't have anything pre-made set up. In this post I'll describe in detail how to do CD without too many dependencies.
+One of the things I knew I wanted for [Playlistlog](/posts/2020-04-05-playlistlog.html) was to do Continous Delivery on pushes to the master branch. This is a workflow I enjoy a lot, and contributes to a healthier development cycle. When using [Gigalixir](https://gigalixir.com/) (for [Lasso](https://lasso.gigalixirapp.com/)) CD came for free. At work I have previously used Mesos+Marathon, AWS Elastic Beanstalk, and Kubernetes to set up different CD workflows. Since Playlistlog is hosted on a Digital Ocean droplet I don't have anything pre-made set up. In this post I'll describe in detail how to do CD without too many dependencies.
 
 ## The building blocks
 
@@ -22,25 +22,25 @@ The docker container is hosted on dockerhub. It gets built and pushed by a githu
 That it is specifically dockerhub is not important either. The most important part is that you have a way to know when a new version/tag
 is available. For example by setting up a [webhook](https://docs.docker.com/docker-hub/webhooks/).
 
-I could also have opted to not do docker at all, but decided to go with it since I want as few dependencies on my server as possible.
+I could of course also have opted to not do docker at all. In the end I decided to go with it since I want as few dependencies on my server as possible.
 
 ### Container orchestrator
 
 The docker container runs as a [Docker Swarm Service](https://docs.docker.com/engine/swarm/). My swarm setup is dead simple, only one *service*. So why do I need it? To do rolling updates (ie when updating to a newer version of the application) with no downtime.
 
-My first, manual deployment/upgrade script was basically this: `docker service update --update-order start-first --image vorce/playlistlog:$tag playlistlog` where `$tag` is the new version of the docker image that I wanted to run. I executed this manually after a new docker image was uploaded to dockerhub.
+My first, manual deployment/upgrade script was basically this: `docker service update --update-order start-first --image vorce/playlistlog:$tag playlistlog`. Where `$tag` is the new version of the docker image that I wanted to run. I executed this manually whenever a new docker image was uploaded to dockerhub.
 
-I thought about doing zero downtime deploys with some nginx and shell script voodoo, but decided against it since swarm is just there after installing docker (which I wanted anyway).
+I thought about doing zero downtime deploys with some nginx and shell script voodoo for a second. But decided against it since swarm comes with docker which I wanted anyway.
 
 ### Server
 
-I have a publically available place to run the docker container, a Digital Ocean droplet to be precise. But this could also be a Raspberry PI or whatever. The point is that there is nothing that just gives me CD out of the box.
+I have a publically available place to run the docker container, a Digital Ocean droplet to be precise. But this could also be a Raspberry PI or whatever. The point is that there is nothing that gives me CD out of the box.
 
 On the server I am running stock Ubuntu 18. I have installed nginx, certbot (for the let's encrypt cert), and docker. That's it, and I am very hesitant to install more stuff.
 
 ## The sauce
 
-Obviously before embarking on continously deploying I made sure that I could manually deploy, the app was running and everything was stable.
+Before embarking on continously deploying I made sure that I could manually deploy. And that the app was running and everything was stable.
 
 Okay so with all the pre-reqs out of the way, there's only two things we need to do to get the juicy CD workflow:
 
@@ -53,16 +53,16 @@ Sounds very easy.
 
 To do this we obviously need a http server and... an app to parse the json, pick out the tag, and then trigger the second step.
 
-There are a bunch of readily available software that is specifically made to be able to do this. The problem I encountered while looking at some of those apps is that none of them were Invented Here. No just kidding, the problem is that they are all quite generic, so you have to learn how to configure, deploy, test, and operate them. And some of them require runtimes (like Python 2, or Ruby), which I do not want to install. I was heavily considering writing my first golang program, that would do the job in a super tailored, specific and minimal way (I don't need to handle any webhook, just the one from dockerhub). But again, it would require a http server, a new entry in my nginx config etc.
+There are a bunch of available software that's made to do exactly this. The problem I encountered while looking at some of those apps is that none of them are Invented Here. Nah just kidding. The problem is that they are all quite generic, so you have to learn how to configure, deploy, test, and operate them. And some of them require runtimes (like Python 2, or Ruby), which I do not want to install. I was seriously considering writing my first golang program to do the job. In a super tailored, specific and minimal way (I don't need to handle any webhook, just the one from dockerhub). But again, it would require a http server, a new entry in my nginx config etc.
 
 I already have a http server! And an app that handles incoming http requests - my own webapp. Why not add a route for the webhook request there?
-Well we are then coupling the app to dockerhub which doesn't make a lot of sense. I decided that in this case it's probably worth it.
+Well we are then coupling the app to dockerhub which doesn't make a lot of sense. I decided that in this case it seems worth it.
 
-On to the next problem then, if the webhook handler is running inside a docker container how can I communicate to the outside host and tell swarm to update?
+On to the next problem then. If the webhook handler is running inside a docker container, how can I communicate to the outside host? And how do I tell swarm to update?
 
 ### Talking to docker inside docker
 
-My first idea was to run a shell script from my phoenix app, but quickly realized that there is such a thing as a Docker API.
+My first idea was to run a shell script from my phoenix app, but I realized that there is such a thing as a Docker API.
 
 To use the Docker API you can send request to the docker unix socket. That's cool. I've not really worked with unix sockets before like that. After some searching I could list services on the host (not inside docker yet) by running: `curl -XGET --unix-socket /var/run/docker.sock http://localhost/services`.
 Nice.
@@ -159,8 +159,8 @@ end
 
 #### Post the service update
 
-We're getting close. Now all that is left is to create the payload for the update service request and post it.
-An important detail that's not entirely clear from the documentation is that the payload must be complete, ie all fields should be present not only the ones we want to update.
+We're getting close. Now all that's left is to create the payload for the update service request and post it.
+An important detail that's not clear from the documentation is that the payload must be complete. IE all fields should be present not only the ones we want to update.
 
 Good thing that we have the full service details from the `get_service_details/1` call.
 
@@ -209,14 +209,14 @@ I went through a couple of different ideas before settling on the implementation
 
 [Nomad](https://www.nomadproject.io/), [traefik](https://containo.us/traefik/), [k8s](https://kubernetes.io/) were all on the table at one point or another. The [github issue for setting up CD](https://github.com/vorce/playlist_log/issues/7) served as a brain dump and log.
 
-Would it have been even simpler to set up Continuous Deployment with anything else? I think maybe yes, but then again you would add another dependency.
+Would it have been even simpler to set up Continuous Deployment with something else? Likely, but then again you would need another dependency.
 
 ## Show me the code
 
-Another convenient benefit of this approach that most of the workflow is documented in a sort of logical place. In the application code itself. Here's how it's implemented for Playlistlog: [controller](https://github.com/vorce/playlist_log/blob/master/lib/playlist_log_web/controllers/dockerhub_controller.ex) + [logic](https://github.com/vorce/playlist_log/blob/master/lib/playlist_log/dockerhub.ex)
+Another convenient benefit of this approach that most of the workflow is documented in a sort of logical place. In the application code itself. Here's how it's implemented for Playlistlog: [controller](https://github.com/vorce/playlist_log/blob/master/lib/playlist_log_web/controllers/dockerhub_controller.ex) + [logic](https://github.com/vorce/playlist_log/blob/master/lib/playlist_log/dockerhub.ex).
 
 ## Conclusion
 
-I'm happy with this setup. I think it is pragmatic, works well, and does not make me overly reliant on a particular server setup. As long as I have docker and access to the docker socket (this might not be common though?) I should be able to run this setup anywhere.
+I'm happy with this setup. It's pragmatic, works well, and does not make me reliant on a particular server setup. As long as I have docker and access to the docker socket (this might not be common though?) I should be able to run this setup anywhere.
 
 I would love to hear suggestions for improvements or alternative ways -- my contact details are on the [about page](/about.html).
