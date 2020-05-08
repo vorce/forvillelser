@@ -2,7 +2,7 @@
 %{
   title: "Continously deploying a docker aware phoenix app",
   description: "A recipe for doing Continous Deployment of a phoenix app running in Docker Swarm",
-  created_at: "2020-04-14T18:18:26.501564Z"
+  created_at: "2020-05-08T17:05:26.501564Z"
 }
 ---
 
