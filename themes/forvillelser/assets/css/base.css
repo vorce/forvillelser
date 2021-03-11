@@ -43,6 +43,10 @@ a {
   text-decoration: underline;
 }
 
+a:visited {
+  color: #7a53bd;
+}
+
 a:hover {
   color:   #00348e;
   text-decoration: none;
