@@ -26,7 +26,7 @@ Dániel gave us some serious war stories from Klarna and their internal erlang s
 
 ### Comparing the Actor Model and CSP Confurrency using Elixir and Clojure (Xiang Ji)
 
-I have to highlight this talk by my colleague [Xiang Ji's](https://xiangji.me/). Spot on overview and comparison on the these models, delivered in a super clear way. I personally really like both Clojure and Elixir but haven't actually needed to do much concurrency with Clojure, so this was a very nice talk for me. Big up!
+I have to highlight this talk by my colleague [Xiang Ji](https://xiangji.me/). Spot on overview and comparison on the these models, delivered in a super clear way. I personally really like both Clojure and Elixir but haven't actually needed to do much concurrency with Clojure, so this was a very nice talk for me. Big up!
 
 ### LiveView and JavaScript - A guide to achieving synergy (Michal Gibowski, Hamza Belhaj)
 
