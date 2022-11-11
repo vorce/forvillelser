@@ -35,7 +35,7 @@ What if you could get a nice, graphic visualization of a query explanation right
 
 Enter `KinoEcto.Explain`! If you connect to an elixir node with `kino_ecto` added you can visualize a query simply by doing: `KinoEcto.explain(MyApp.Repo, :all, my_ecto_query)`
 
-![KinoEcto.Explain in action](/assets/images/spawnfest-2022/lively_explain.png)
+![KinoEcto.Explain in action](/assets/images/spawnfest-2022/kino_ecto_explain.png)
 
 As you can see the output is inspired a lot by explain.dalibo :)
 
