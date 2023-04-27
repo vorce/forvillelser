@@ -14,3 +14,7 @@ Always work in progress.
 
     make clean
     make
+
+### New post
+
+    mix gonz.post "My new post"
