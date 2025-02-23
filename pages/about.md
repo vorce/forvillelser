@@ -7,7 +7,7 @@
 }
 ---
 <p class="h-card">
-I'm <a class="p-name u-url" href="https://forvillelser.vorce.se/about.html" rel="me">Joel</a> and you can reach me via email <a class="u-email" href="mailto:joel@vorce.se" rel="me">joel@vorce.se</a> (or on <a href="https://twitter.com/Octavorce" rel="me">twitter</a>, <a href="https://github.com/vorce" rel="me">github</a>, <a href="https://lobste.rs/u/vorce" rel="me">lobste.rs</a>, <a href="https://open.spotify.com/user/octavorce" rel="me">spotify</a>)
+I'm <a class="p-name u-url" href="https://forvillelser.vorce.se/about.html" rel="me">Joel</a> and you can reach me via email <a class="u-email" href="mailto:joel@vorce.se" rel="me">joel@vorce.se</a> (or on <s><a href="https://twitter.com/Octavorce" rel="me">twitter</a></s> <a href="https://bsky.app/profile/vorce.se" rel="me">bluesky</a>, <a href="https://github.com/vorce" rel="me">github</a>, <a href="https://lobste.rs/u/vorce" rel="me">lobste.rs</a>, <a href="https://open.spotify.com/user/octavorce" rel="me">spotify</a>)
 </p>
 
 I built [this site](https://github.com/vorce/forvillelser) with [gonz](https://github.com/vorce/gonz).
