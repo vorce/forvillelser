@@ -63,11 +63,11 @@ I figured my "Kaynting" processing sketch was going to be my first real test of 
 I played around with all kinds of things, mostly involving the "pen force" knob on the machine but eventually I realized that it could be due to the drawing speed.
 Sure enough after lowering to "speed 2" (HPGL command `VS2;`) instead of 5 or whatever, the arcs looked solid. Cool, now I wanted to draw multiple similar shapes on the same paper. On to the next problem, that took much longer to solve.
 
-## Software, control flow, and communication
+## Software, flow control, and communication
 
-As soon as I sent a bigger file to the plotter it started acting strange. I had configured the com6 port in my usb settings to match the dip switches (7 bits, 1 stop bit, xon/xoff control flow, etc).
+As soon as I sent a bigger file to the plotter it started acting strange. I had configured the com6 port in my usb settings to match the dip switches (7 bits, 1 stop bit, xon/xoff flow control, etc).
 
-Behaviour 1: Plotter did not do anything until all lines in the HPGL file had been sent and the program closed. Then the plotter processed some of the HPGL commands, but not all. This repeated even after power cycling my Roland boy. I fumbled around a lot when this happened, I didn't at all connect this behavior to the bigger file, and I think I even tried some very basic, small test HPGL commands with similar result at this point so it was frustrating.
+But the plotter didn't do anything, the sending was blocked after the two first lines. This problem persisted even after power cycling my Roland boy. I fumbled around a lot when this happened, I didn't at all connect this behavior to the bigger file, and I think I even tried some very basic, small test HPGL commands with the same result at this point so it was frustrating.
 
 Now is a good time to specify exactly how I send data to the plotter. This is interesting because it shows how to generate HPGL with processing and send it to the serial port. There will be a mix of java and clojure (because I love [Quil](https://github.com/quil/quil)).
 
@@ -97,7 +97,7 @@ And then I call `saveHPGL` on some key press when the sketch looks good.
 
 ### Writing to serial port with `jSerialComm`
 
-Processing comes with built-in [serial I/O functionality](https://processing.org/reference/libraries/serial/index.html), but I noticed it lacked some features (like specifying exact settings), so I opted to use [jSerialComm](https://fazecast.github.io/jSerialComm/) right away. Here's an excertp of my Quil clojure code to write a HPGL file:
+Processing comes with built-in [serial I/O functionality](https://processing.org/reference/libraries/serial/index.html), but I noticed it lacked some features (like specifying exact settings), so I opted to use [jSerialComm](https://fazecast.github.io/jSerialComm/) right away. Here's an excerpt of my Quil clojure code to write a HPGL file:
 
 ```clojure
 (ns write-hpgl.core
@@ -131,16 +131,16 @@ Processing comes with built-in [serial I/O functionality](https://processing.org
 ```
 
 At this point I decided to limit the amount of variables and context switching I had to do, so I ported the above code to java and stayed in the default processing environment.
-I started suspecting that the control flow settings (xon/xoff) was related to my problem because if I switched it off the plotter started working on the first instructions it got immediately. But it still only handled the first few commands, and then the Error LED on the device blinked.
+I started suspecting that the flow control settings (xon/xoff) was related to my problem because if I switched it off the plotter started working on the first instructions it got immediately. But it still only handled the first few commands, and then the Error LED on the device blinked.
 
-With this in mind I tried to re-enable xon/xoff, and see if I got some lines from Roland boy that told me to pause sending (XOFF). Basically checking if the port's input stream had any available data, and if so is it XOFF (ASCII 19)? Then pause for a bit, if we get XON (ASCII 17) - continue. I implemented this but I never got anything in the inputstream :(
+With this in mind I tried to re-enable xon/xoff, and see if I got some lines from Roland boy instructing me to pause sending (XOFF). Basically, I checked whether the port's input stream had any available data, and if so is it XOFF (ASCII 19)? Then pause for a bit, if we get XON (ASCII 17) - continue. I implemented this but I never got anything in the inputstream :(
 
 I was starting to get desperate so I looked into an existing (python) library that is made for communicating with old plotters: [chiplotle3](https://github.com/cyprienh/chiplotle3). And thank goodness for that! Here I learned about its clever communication & flow control technique; ask the plotter about its current buffer size before sending anything, if it's above a certain size go ahead, if not wait a bit and repeat.
 The cool thing is that HPGL itself has an escape code to ask for the buffer size: `"?.B"`, and Roland boy will answer back with the number of free bytes. I implemented this and turned off flow control for the port - success!
 
 ![First processing plot](/assets/images/roland-dxy990/kaynting_plot1.jpg)
 
-Feels good to see a version of this pretty old (10+ years) [sketch](https://github.com/vorce/processing/tree/master/Kaynting) on some physical material.
+Feels good to see a version of this rather old (10+ years) [sketch](https://github.com/vorce/processing/tree/master/Kaynting) on some physical material.
 
 Obligatory video (sound on hehe):
 
@@ -149,11 +149,13 @@ Obligatory video (sound on hehe):
   Your browser does not support the video tag.
 </video> 
 
+One explanation for having to do this myself instead of relying on the flow control setting (which I assumed would do pretty much the same thing) is because the driver for the USB-to-serial cable may or may not handle flow control properly.
+
 ## Next steps
 
 * Automatically vary pen speed depending on the type of drawing primitive (e.g lines can be faster than arcs)
 * HPGL optimizer, ensure plotter doesn't draw the same area twice. E.g if file contains line1: `(0, 0) -> (100, 0)` and line2: `(50, 0) -> (110, 0)` replace those with just `(0, 0) -> (110, 0)`
-* Publish code for my helper library JAR that contains the `sendHPGLWithBackoff` (and other utilities), which makes it easy to resue for all my processing/quil sketches
+* Publish code for my helper library JAR that contains the `sendHPGLWithBackoff` (and other utilities), which makes it easy to reuse for all my processing/quil sketches
 * Plot the next sketch!
 
 ## Resources
@@ -164,4 +166,5 @@ Obligatory video (sound on hehe):
 * [hpglgraphics library](https://ciaron.net/HPGLGraphics/) for Processing
 * [jSerialComm](https://fazecast.github.io/jSerialComm/)
 * [chiplotle3](https://github.com/cyprienh/chiplotle3)
+* [HPGL viewer from CERN](https://service-hpglview.web.cern.ch/service-hpglview/download_index.html)
 
